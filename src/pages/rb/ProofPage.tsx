@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { STEPS, getArtifact } from "@/lib/rb-store";
+import { STEPS, getArtifact, saveArtifact } from "@/lib/rb-store";
 import { Check, Copy, ExternalLink, ShieldCheck, AlertCircle, Award } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import AppNavbar from "@/components/app/AppNavbar";
@@ -32,6 +32,14 @@ const ProofPage = () => {
     checklist: new Array(10).fill(false),
     links: { lovable: "", github: "", deployed: "" }
   });
+
+  const [, forceUpdate] = useState(0);
+
+  const toggleStep = (stepNum: number) => {
+    const current = getArtifact(stepNum);
+    saveArtifact(stepNum, { ...current, uploaded: !current.uploaded });
+    forceUpdate(n => n + 1);
+  };
 
   // Load state
   useEffect(() => {
@@ -133,14 +141,14 @@ Core Capabilities:
               <div className="space-y-3">
                 {STEPS.map((step) => {
                   const isDone = getArtifact(step.num).uploaded;
-                  // For dev purposes, we might want to manually toggle if "uploaded" check logic is strict?
-                  // The prompt said "Show all 8 steps with status". Assuming existing logic holds.
-                  // If in dev environment without backend, "uploaded" might be false. 
-                  // Let's assume the user has been marking them or we rely on the store.
                   return (
-                    <div key={step.num} className="flex items-center justify-between text-sm group">
+                    <div
+                      key={step.num}
+                      onClick={() => toggleStep(step.num)}
+                      className="flex items-center justify-between text-sm group cursor-pointer hover:bg-secondary/50 p-2 rounded transition-colors"
+                    >
                       <div className="flex items-center gap-3">
-                        <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] border ${isDone ? "bg-primary text-primary-foreground border-primary" : "border-muted-foreground/30 text-muted-foreground"}`}>
+                        <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] border transition-colors ${isDone ? "bg-primary text-primary-foreground border-primary" : "border-muted-foreground/30 text-muted-foreground group-hover:border-primary/50"}`}>
                           {isDone ? <Check className="w-3 h-3" /> : step.num}
                         </div>
                         <span className={isDone ? "text-foreground" : "text-muted-foreground"}>{step.title}</span>
@@ -153,7 +161,7 @@ Core Capabilities:
               {!stepsCompleted && (
                 <p className="mt-4 text-[10px] text-amber-500 flex items-center gap-1.5 bg-amber-500/10 p-2 rounded">
                   <AlertCircle className="w-3 h-3" />
-                  Complete all steps in the Build Track to proceed.
+                  Click steps to mark them as complete.
                 </p>
               )}
             </section>
@@ -227,8 +235,8 @@ Core Capabilities:
                 onClick={handleCopy}
                 disabled={!isShipped}
                 className={`w-full flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-bold transition-all ${isShipped
-                    ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md"
-                    : "bg-secondary text-muted-foreground cursor-not-allowed"
+                  ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md"
+                  : "bg-secondary text-muted-foreground cursor-not-allowed"
                   }`}
               >
                 <Copy className="w-4 h-4" />

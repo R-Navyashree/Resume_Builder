@@ -4,7 +4,7 @@ import { FileText, Eye, Award } from "lucide-react";
 const navItems = [
   { to: "/builder", label: "Builder", icon: FileText },
   { to: "/preview", label: "Preview", icon: Eye },
-  { to: "/proof", label: "Proof", icon: Award },
+  { to: "/rb/proof", label: "Proof", icon: Award },
 ];
 
 const AppNavbar = () => {
@@ -26,11 +26,10 @@ const AppNavbar = () => {
               <NavLink
                 key={to}
                 to={to}
-                className={`flex items-center gap-1.5 px-4 py-1.5 rounded-md text-xs font-mono font-medium transition-all ${
-                  active
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-                }`}
+                className={`flex items-center gap-1.5 px-4 py-1.5 rounded-md text-xs font-mono font-medium transition-all ${active
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                  }`}
               >
                 <Icon className="w-3.5 h-3.5" />
                 {label}
