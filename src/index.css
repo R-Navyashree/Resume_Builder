@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    --background: 220 20% 7%;
+    --foreground: 210 20% 92%;
+
+    --card: 220 18% 10%;
+    --card-foreground: 210 20% 92%;
+
+    --popover: 220 18% 10%;
+    --popover-foreground: 210 20% 92%;
+
+    --primary: 142 60% 50%;
+    --primary-foreground: 220 20% 7%;
+
+    --secondary: 220 16% 16%;
+    --secondary-foreground: 210 20% 85%;
+
+    --muted: 220 14% 14%;
+    --muted-foreground: 215 12% 50%;
+
+    --accent: 200 80% 55%;
+    --accent-foreground: 220 20% 7%;
+
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 210 20% 95%;
+
+    --border: 220 14% 18%;
+    --input: 220 14% 18%;
+    --ring: 142 60% 50%;
+
+    --radius: 0.5rem;
+
+    --kodnest-gold: 42 90% 55%;
+    --kodnest-surface: 220 16% 12%;
+    --kodnest-panel: 220 18% 9%;
+    --kodnest-success: 142 60% 50%;
+    --kodnest-warning: 38 90% 55%;
+    --kodnest-error: 0 70% 55%;
+    --kodnest-info: 200 80% 55%;
+    --kodnest-step-locked: 220 10% 30%;
+    --kodnest-step-active: 142 60% 50%;
+    --kodnest-step-done: 200 80% 55%;
+
+    --sidebar-background: 220 18% 10%;
+    --sidebar-foreground: 210 20% 92%;
+    --sidebar-primary: 142 60% 50%;
+    --sidebar-primary-foreground: 220 20% 7%;
+    --sidebar-accent: 220 16% 16%;
+    --sidebar-accent-foreground: 210 20% 85%;
+    --sidebar-border: 220 14% 18%;
+    --sidebar-ring: 142 60% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+
+@layer utilities {
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .font-sans {
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@media print {
+  @page {
+    margin: 0;
+    size: auto;
+  }
+  
+  body {
+    background-color: white !important;
+    color: black !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Hide all UI elements */
+  .no-print, 
+  nav, 
+  button, 
+  input, 
+  textarea, 
+  [role="dialog"],
+  .toast,
+  ::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  /* Specific structure hiding */
+  /* Hide the left form column */
+  .flex-1 > div:first-child { 
+    display: none !important;
+  }
+  
+  /* Hide the preview header */
+  .w-\[45\%\] > div:first-child {
+    display: none !important;
+  }
+  
+  /* Reset the preview container */
+  .w-\[45\%\] {
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    background-color: white !important;
+  }
+  
+  /* Reset the live preview panel styles */
+  .bg-secondary\/30 {
+    background-color: white !important;
+  }
+  
+  /* Ensure the resume container takes full width/height naturally but respects page size */
+  .max-w-\[540px\] {
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: auto !important;
+  }
+  
+  /* Ensure text is black */
+  .text-muted-foreground {
+    color: #4b5563 !important; /* gray-600 for contrast in print */
+  }
+  
+  /* Avoid breaking bullets */
+  li, p, .mb-3 {
+    break-inside: avoid;
+  }
+}
