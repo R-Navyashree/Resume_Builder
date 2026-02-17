@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+        mono: ["JetBrains Mono", "monospace"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -47,6 +51,18 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        kodnest: {
+          gold: "hsl(var(--kodnest-gold))",
+          surface: "hsl(var(--kodnest-surface))",
+          panel: "hsl(var(--kodnest-panel))",
+          success: "hsl(var(--kodnest-success))",
+          warning: "hsl(var(--kodnest-warning))",
+          error: "hsl(var(--kodnest-error))",
+          info: "hsl(var(--kodnest-info))",
+          "step-locked": "hsl(var(--kodnest-step-locked))",
+          "step-active": "hsl(var(--kodnest-step-active))",
+          "step-done": "hsl(var(--kodnest-step-done))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -65,25 +81,22 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { boxShadow: "0 0 8px 2px hsl(var(--primary) / 0.3)" },
+          "50%": { boxShadow: "0 0 16px 4px hsl(var(--primary) / 0.5)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
       },
     },
   },
